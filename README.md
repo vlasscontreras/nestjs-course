@@ -140,3 +140,44 @@ $ npm run test:cov
 | -------------- | ------ | ----------- |
 | `/auth/signup` | `POST` | Sign up     |
 | `/auth/signin` | `POST` | Sign in     |
+
+## Course Notes
+
+### NestJS Modules
+
+- Each application has ar leat one module – the root module. That is the starting point of the application
+- Modules are an effective way to organize components by a closely related set of capabilities (e.g. per feature)
+- It is a good practice to have a folder per module, containing the module's components
+- Modules are **singletons**, therefore, a module can be imported by multople other modules
+
+A module is defined by annotating a class with the `@Module` decorator. The decorator provides metadata that NestJS uses to organize the application structure.
+
+```ts
+@Module()
+export class AppModule {}
+```
+
+#### Properties
+
+- **`providers`:** Array of providers to be available within the module via dependency injection
+- **`controllers`:** Array of controllers to be instantiated within the module
+- **`exports`:** Array of providers to export to other modules
+- **`imports`:** List of modules required by this module. Any exported provider by these modules will now be available in our module via dependency injection
+
+Example:
+
+```ts
+@Module({
+  providers: [ForumService],
+  controllers: [ForumController],
+  imports: [
+    PostModule,
+    CommentModule,
+    AuthModule
+  ],
+  exports: [
+    ForumService
+  ]
+})
+export class ForumModule {}
+```
