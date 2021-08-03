@@ -294,3 +294,77 @@ A DTO is an object that carries data between processes. It is used to encapsulat
 - The reason is that interfaces are part of the TypeScript specification and therefore are not preserved post-compilation.
 - Classes allow us to do more, and since they are part of JavaScript, they will be preserved post-compilation.
 - NestJS cannot refer to interfaces in run-time, but can refer to classes.
+
+## NestJS Pipes
+
+- Pipes operate on the **arguments** to be processed by the route handler just before the handler is called.
+- Pipes can perform **data transformation** or **data validation**.
+- Pipes can return data, either original or modified, which will be passed on to the route handler.
+- Pipes can throw exceptions. Exceptions thrown will be handled by NestJS and parsed into an error response.
+- Pipes can be asynchronous.
+
+### Default NestJS Pipes
+
+_Part of the `@nestjs/common` module._
+
+#### ValidationPipe
+
+Validates the compatibility of an entire object against a class (goes well with [DTOs](#data-transfer-object-dto)). If any property cannot be mapped properly (for example, mismatching type), the validation will fail.
+
+#### ParseIntPipe
+
+By default, arguments are of the type `String`. This pipe validates that an argument is a number. If successful, the argument is transformed into a `Number` and passed on to the handler.
+
+### Custom Pipes
+
+- Pipes are classes annotated with the `@Injectable()` decorator.
+- Pipes must implement the `PipeTransform` generic interface. Therefore, every pipe must have a `transform()` method. This will be called by NestJS to process the arguments.
+- The `transform()` method accepts 2 parameters:
+  - **`value`:** The value of the processed argument.
+  - **`metadata`:** An optional object containing metadata about the argument.
+- Whatever is returned from the `transform()` method will be passed on to the route handler. Exceptions will be sent back to the client.
+
+### Consuming Pipes
+
+#### Handler-level Pipes
+
+Defined at the handler level, via the `@UsePipes()` decorator. Such pipe will process all parameters for the incoming requests.
+
+In relation to [parameter-level pipes](#parameter-level-pipes) these require some more code, but provide some great benefits:
+
+- Do not require extra code at the parameter level
+- Easier to maintain and expand. If the shape of the data changes, it is easy to make the necessary changes within the pipe only.
+- Responsibility of identifying the arguments to process is shifted to one central file, the pipe itself.
+- Promote usage of DTOs
+
+```ts
+@Post()
+@UsePipes(SomePipe)
+createTask(@Body('description') description: string) {
+  // ...
+}
+```
+
+#### Parameter-level Pipes
+
+Defined at the parameter level. Only the specific parameter for which the pipe has been specified will be processed. This type of pipe tends to be slimmer and cleaner. Howeverm they often result in extra code added to handlers, this can get messy and hard to maintain.
+
+```ts
+@Post()
+createTask(@Body('description', SomePipe) description: string) {
+  // ...
+}
+```
+
+#### Global Pipes
+
+Defined at the application level and will be applied to any incoming request.
+
+```ts
+async function bootstrap() {
+  const app = await NestFactory.create(ApplicationModule);
+  app.useGlobalPipes(SomePipe);
+  await app.listen(3000);
+}
+bootstrap();
+```
