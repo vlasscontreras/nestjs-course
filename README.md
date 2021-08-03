@@ -181,3 +181,45 @@ Example:
 })
 export class ForumModule {}
 ```
+
+### NestJS Controllers
+
+- Responsible for handling incoming **requests** and returning **responses** to the client
+- Bound to a specific **path** (for exampel `/tasks` for the task resource)
+- Contain **handlers**, which handle **endpoints** and **request methods** (`GET`, `POST`, etc.)
+- Can take advantage of **dependency injection** to consume providers within the same module
+
+Controllers are defined by decorating a class with the `@Controller` decorator. The decorator accepts a string, which is the **path** to be handled by the controller.
+
+```ts
+@Controller('/tasks')
+export class TaskController {}
+```
+
+#### Handlers
+
+Handlers are simply methods within the controller class, decorated with decorators such as `@Get`, `@Post`, etc.
+
+```ts
+@Controller('/tasks')
+export class TaskController {
+  @Get()
+  all() {
+    // Do stuff.
+  }
+
+  @Post()
+  store() {
+    // Do stuff.
+  }
+}
+```
+
+#### HTTP Request Flow
+
+1. The request is routed to a controller, and a handler is called with arguments
+  - NestJS will parse the relevant request data and it will be available in the handler.
+2. Handler handles the request
+  - Perform operations such as communication with a service. For example, retrieving an item from the database.
+3. Handler returns a response value
+  - The response can be of any type and even an exception. NestJS will wrap the returned value as an HTTP response and return it to the client.
