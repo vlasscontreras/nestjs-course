@@ -368,3 +368,31 @@ async function bootstrap() {
 }
 bootstrap();
 ```
+
+## Object Relational Mapping (ORM)
+
+ORM is a technique that lets you query and manupulate data from a database, using an object-oriented paradigm.
+
+There are many ORM libraries that allow developers to communicate to the database using their preferred programming language, rather than sending plain queries directly.
+
+### Pros
+
+- Writing the data mnodel in one place makes it easier to maintain because it is less repetition.
+- Lots of things done automatically: database handling, data types, relations, etc.
+- No need to write SQL syntax (easy to learn, hard to master), lets you use your natural way of coding.
+- Database abstraction, lets you change the database type whenever you wish.
+- Leverages OOP, therefore things like inheritance are easy to achieve
+
+### Cons
+
+- You have to learn it, and ORM libraries are not always simple.
+- Performance is decent, but easy to neglect.
+- Makes it easy to forget (or never learn) what's happening behind the scenes, which can lead to a variety of maintainability issues.
+
+### TypeORM
+
+Is an ORM library that can run in Node.js and be used with TypeScript (also JavaScript). It helps us define and manage entities, repositories, columns, relations, replication, indices, queries, logging, and so much more.
+
+```ts
+const tasks = await Task.find({ status: 'DONE', user: 'Ashley' });
+```
