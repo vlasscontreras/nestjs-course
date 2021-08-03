@@ -145,10 +145,10 @@ $ npm run test:cov
 
 ### NestJS Modules
 
-- Each application has ar leat one module – the root module. That is the starting point of the application
-- Modules are an effective way to organize components by a closely related set of capabilities (e.g. per feature)
-- It is a good practice to have a folder per module, containing the module's components
-- Modules are **singletons**, therefore, a module can be imported by multople other modules
+- Each application has ar leat one module – the root module. That is the starting point of the application.
+- Modules are an effective way to organize components by a closely related set of capabilities (e.g. per feature).
+- It is a good practice to have a folder per module, containing the module's components.
+- Modules are **singletons**, therefore, a module can be imported by multople other modules.
 
 A module is defined by annotating a class with the `@Module` decorator. The decorator provides metadata that NestJS uses to organize the application structure.
 
@@ -159,10 +159,10 @@ export class AppModule {}
 
 #### Properties
 
-- **`providers`:** Array of providers to be available within the module via dependency injection
-- **`controllers`:** Array of controllers to be instantiated within the module
-- **`exports`:** Array of providers to export to other modules
-- **`imports`:** List of modules required by this module. Any exported provider by these modules will now be available in our module via dependency injection
+- **`providers`:** Array of providers to be available within the module via dependency injection.
+- **`controllers`:** Array of controllers to be instantiated within the module.
+- **`exports`:** Array of providers to export to other modules.
+- **`imports`:** List of modules required by this module. Any exported provider by these modules will now be available in our module via dependency injection.
 
 Example:
 
@@ -184,10 +184,10 @@ export class ForumModule {}
 
 ### NestJS Controllers
 
-- Responsible for handling incoming **requests** and returning **responses** to the client
-- Bound to a specific **path** (for exampel `/tasks` for the task resource)
-- Contain **handlers**, which handle **endpoints** and **request methods** (`GET`, `POST`, etc.)
-- Can take advantage of **dependency injection** to consume providers within the same module
+- Responsible for handling incoming **requests** and returning **responses** to the client.
+- Bound to a specific **path** (for exampel `/tasks` for the task resource).
+- Contain **handlers**, which handle **endpoints** and **request methods** (`GET`, `POST`, etc.).
+- Can take advantage of **dependency injection** to consume providers within the same module.
 
 Controllers are defined by decorating a class with the `@Controller` decorator. The decorator accepts a string, which is the **path** to be handled by the controller.
 
@@ -217,11 +217,11 @@ export class TaskController {
 
 #### HTTP Request Flow
 
-1. The request is routed to a controller, and a handler is called with arguments
+1. The request is routed to a controller, and a handler is called with arguments.
   - NestJS will parse the relevant request data and it will be available in the handler.
-2. Handler handles the request
+2. Handler handles the request.
   - Perform operations such as communication with a service. For example, retrieving an item from the database.
-3. Handler returns a response value
+3. Handler returns a response value.
   - The response can be of any type and even an exception. NestJS will wrap the returned value as an HTTP response and return it to the client.
 
 ### NestJS Providers
