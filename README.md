@@ -396,3 +396,25 @@ Is an ORM library that can run in Node.js and be used with TypeScript (also Java
 ```ts
 const tasks = await Task.find({ status: 'DONE', user: 'Ashley' });
 ```
+
+## JSON Web Tokens (JWT)
+
+- Open source industry standard (RFC-7519).
+- Usable for authorization or secure exchange of information between parties.
+- Verify that the sender is who it/he/she claims to be.
+- Signed by the issuer, using a secret or key pair (HMAC algorithm, RSA, or ECDSA).
+
+**Payload example**
+
+```json
+{
+  "username": "johndoe",
+  "role": "admin",
+  "iat": 1516171819,
+  "exp": 1516171820,
+}
+```
+
+JWT can be decoded by anyone. They should not contain sensitive information such as passwords, and should be short-lived.
+
+It is useful for front-end applications to use these tokens to toggle features conditionally. For example, if a user is an administrator, we could show or hide a certain button based on the claims of the token.
