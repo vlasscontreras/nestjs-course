@@ -418,3 +418,23 @@ const tasks = await Task.find({ status: 'DONE', user: 'Ashley' });
 JWT can be decoded by anyone. They should not contain sensitive information such as passwords, and should be short-lived.
 
 It is useful for front-end applications to use these tokens to toggle features conditionally. For example, if a user is an administrator, we could show or hide a certain button based on the claims of the token.
+
+### Logging
+
+#### Types
+
+- **Log:** General purpose logging of important information.
+- **Warning:** Unhandled issues that are not fatal or destructive errors.
+- **Error:** Unhandled issue that is fatal or destructive.
+- **Debug:** Useful information that can help us debug the logic in case of an error/warning. Intended for developers.
+- **Verbose:** Information providing insights about the behavior of the application. Intended for operators (for example, support). Usually "too much information".
+
+#### Levels
+
+You could define multiple log levels for different environments. For example:
+
+|             | Log | Error | Warning | Debug | Verbose |
+| ----------- | --- | ----- | ------- | ----- | ------- |
+| Development | ✅  |   ✅   |   ✅    |   ✅   |   ✅    |
+| Staging     | ✅  |   ✅   |   ✅    |   ❌   |   ❌    |
+| Production  | ✅  |   ✅   |   ❌    |   ❌   |   ❌    |
