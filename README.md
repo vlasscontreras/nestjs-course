@@ -274,7 +274,7 @@ export class TasksController {
 }
 ```
 
-## Data Transfer Object (DTO)
+### Data Transfer Object (DTO)
 
 A DTO is an object that carries data between processes. It is used to encapsulate data and send it from one subsystem of an application to another. In NestJS, it is meant to be an object that defines how the data will be sent over the network.
 
@@ -295,7 +295,7 @@ A DTO is an object that carries data between processes. It is used to encapsulat
 - Classes allow us to do more, and since they are part of JavaScript, they will be preserved post-compilation.
 - NestJS cannot refer to interfaces in run-time, but can refer to classes.
 
-## NestJS Pipes
+### NestJS Pipes
 
 - Pipes operate on the **arguments** to be processed by the route handler just before the handler is called.
 - Pipes can perform **data transformation** or **data validation**.
@@ -303,19 +303,19 @@ A DTO is an object that carries data between processes. It is used to encapsulat
 - Pipes can throw exceptions. Exceptions thrown will be handled by NestJS and parsed into an error response.
 - Pipes can be asynchronous.
 
-### Default NestJS Pipes
+#### Default NestJS Pipes
 
 _Part of the `@nestjs/common` module._
 
-#### ValidationPipe
+##### ValidationPipe
 
 Validates the compatibility of an entire object against a class (goes well with [DTOs](#data-transfer-object-dto)). If any property cannot be mapped properly (for example, mismatching type), the validation will fail.
 
-#### ParseIntPipe
+##### ParseIntPipe
 
 By default, arguments are of the type `String`. This pipe validates that an argument is a number. If successful, the argument is transformed into a `Number` and passed on to the handler.
 
-### Custom Pipes
+#### Custom Pipes
 
 - Pipes are classes annotated with the `@Injectable()` decorator.
 - Pipes must implement the `PipeTransform` generic interface. Therefore, every pipe must have a `transform()` method. This will be called by NestJS to process the arguments.
@@ -324,9 +324,9 @@ By default, arguments are of the type `String`. This pipe validates that an argu
   - **`metadata`:** An optional object containing metadata about the argument.
 - Whatever is returned from the `transform()` method will be passed on to the route handler. Exceptions will be sent back to the client.
 
-### Consuming Pipes
+#### Consuming Pipes
 
-#### Handler-level Pipes
+##### Handler-level Pipes
 
 Defined at the handler level, via the `@UsePipes()` decorator. Such pipe will process all parameters for the incoming requests.
 
@@ -345,7 +345,7 @@ createTask(@Body('description') description: string) {
 }
 ```
 
-#### Parameter-level Pipes
+##### Parameter-level Pipes
 
 Defined at the parameter level. Only the specific parameter for which the pipe has been specified will be processed. This type of pipe tends to be slimmer and cleaner. Howeverm they often result in extra code added to handlers, this can get messy and hard to maintain.
 
@@ -356,7 +356,7 @@ createTask(@Body('description', SomePipe) description: string) {
 }
 ```
 
-#### Global Pipes
+##### Global Pipes
 
 Defined at the application level and will be applied to any incoming request.
 
@@ -369,13 +369,13 @@ async function bootstrap() {
 bootstrap();
 ```
 
-## Object Relational Mapping (ORM)
+### Object Relational Mapping (ORM)
 
 ORM is a technique that lets you query and manupulate data from a database, using an object-oriented paradigm.
 
 There are many ORM libraries that allow developers to communicate to the database using their preferred programming language, rather than sending plain queries directly.
 
-### Pros
+#### Pros
 
 - Writing the data mnodel in one place makes it easier to maintain because it is less repetition.
 - Lots of things done automatically: database handling, data types, relations, etc.
@@ -383,13 +383,13 @@ There are many ORM libraries that allow developers to communicate to the databas
 - Database abstraction, lets you change the database type whenever you wish.
 - Leverages OOP, therefore things like inheritance are easy to achieve
 
-### Cons
+#### Cons
 
 - You have to learn it, and ORM libraries are not always simple.
 - Performance is decent, but easy to neglect.
 - Makes it easy to forget (or never learn) what's happening behind the scenes, which can lead to a variety of maintainability issues.
 
-### TypeORM
+#### TypeORM
 
 Is an ORM library that can run in Node.js and be used with TypeScript (also JavaScript). It helps us define and manage entities, repositories, columns, relations, replication, indices, queries, logging, and so much more.
 
@@ -397,7 +397,7 @@ Is an ORM library that can run in Node.js and be used with TypeScript (also Java
 const tasks = await Task.find({ status: 'DONE', user: 'Ashley' });
 ```
 
-## JSON Web Tokens (JWT)
+### JSON Web Tokens (JWT)
 
 - Open source industry standard (RFC-7519).
 - Usable for authorization or secure exchange of information between parties.
