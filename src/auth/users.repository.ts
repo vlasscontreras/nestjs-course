@@ -4,8 +4,8 @@ import {
 } from '@nestjs/common';
 import { EntityRepository, Repository } from 'typeorm';
 import { genSaltSync, hash } from 'bcrypt';
-import { AuthCredentialsDto } from './dto/auth-credentials.dto';
-import { User } from './user.entity';
+import { AuthCredentialsDto } from '@/auth/dto/auth-credentials.dto';
+import { User } from '@/auth/user.entity';
 
 @EntityRepository(User)
 export class UsersRepository extends Repository<User> {

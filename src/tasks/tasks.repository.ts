@@ -1,10 +1,10 @@
 import { InternalServerErrorException, Logger } from '@nestjs/common';
-import { User } from 'src/auth/user.entity';
 import { Brackets, EntityRepository, Repository } from 'typeorm';
-import { CreateTaskDto } from './dto/create-task.dto.class';
-import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
-import { Task } from './task.entity';
-import { TaskStatus } from './task.enum';
+import { User } from '@/auth/user.entity';
+import { CreateTaskDto } from '@/tasks/dto/create-task.dto.class';
+import { GetTasksFilterDto } from '@/tasks/dto/get-tasks-filter.dto';
+import { Task } from '@/tasks/task.entity';
+import { TaskStatus } from '@/tasks/task.enum';
 
 @EntityRepository(Task)
 export class TasksRepository extends Repository<Task> {
