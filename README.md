@@ -438,3 +438,10 @@ You could define multiple log levels for different environments. For example:
 | Development | ✅  |   ✅   |   ✅    |   ✅   |   ✅    |
 | Staging     | ✅  |   ✅   |   ✅    |   ❌   |   ❌    |
 | Production  | ✅  |   ✅   |   ❌    |   ❌   |   ❌    |
+
+### Configuration
+
+- Central way of defining values that are loaded upon starting the application (should not be changed during runtime).
+- Can be segmented by environment: development, staging, production, etc.
+- Can be defined in the code base. This is useful for version control and collaborative work.
+- Can be defined in many ways (JSON, YAML, XML, environment variables, etc.) using custom solutions or open-source libraries.
