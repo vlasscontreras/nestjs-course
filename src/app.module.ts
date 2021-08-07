@@ -1,9 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { getConnectionOptions } from 'typeorm';
 import { TasksModule } from './tasks/tasks.module';
 import { AuthModule } from './auth/auth.module';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -11,11 +10,18 @@ import { ConfigModule } from '@nestjs/config';
       envFilePath: ['.env'],
     }),
     TypeOrmModule.forRootAsync({
-      useFactory: async () =>
-        Object.assign(await getConnectionOptions(), {
-          autoLoadEntities: true,
-          synchronize: true,
-        }),
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        type: 'mysql',
+        autoLoadEntities: true,
+        synchronize: true,
+        host: configService.get('DB_HOST'),
+        port: configService.get('DB_PORT'),
+        database: configService.get('DB_NAME'),
+        username: configService.get('DB_USERNAME'),
+        password: configService.get('DB_PASSWORD'),
+      }),
     }),
     TasksModule,
     AuthModule,
