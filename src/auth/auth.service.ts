@@ -31,6 +31,6 @@ export class AuthService {
       return { accessToken };
     }
 
-    throw new UnauthorizedException('invalid credentials');
+    throw new UnprocessableEntityException('invalid credentials');
   }
 }
