@@ -1,6 +1,12 @@
-import { IsString, Matches, MaxLength, MinLength } from 'class-validator';
+import {
+  IsBoolean,
+  IsString,
+  Matches,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 
-export class AuthCredentialsDto {
+export class SignUpCredentialsDto {
   @IsString()
   @MinLength(4)
   @MaxLength(20)
@@ -13,4 +19,7 @@ export class AuthCredentialsDto {
     message: 'password is too weak',
   })
   password: string;
+
+  @IsBoolean()
+  terms: boolean;
 }

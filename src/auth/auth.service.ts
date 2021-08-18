@@ -1,8 +1,9 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnprocessableEntityException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { compare as hashCompare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { AuthCredentialsDto } from '@/auth/dto/auth-credentials.dto';
+import { SignInCredentialsDto } from '@/auth/dto/sign-in-credentials.dto';
+import { SignUpCredentialsDto } from '@/auth/dto/sign-up-credentials.dto';
 import { UsersRepository } from '@/auth/users.repository';
 import { JwtPayload } from '@/auth/jwt.payload.interface';
 
@@ -13,14 +14,14 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async signUp(authCredentialsDto: AuthCredentialsDto): Promise<void> {
-    return this.usersRepository.createUser(authCredentialsDto);
+  async signUp(signUpCredentialsDto: SignUpCredentialsDto): Promise<void> {
+    return this.usersRepository.createUser(signUpCredentialsDto);
   }
 
   async signIn(
-    authCredentialsDto: AuthCredentialsDto,
+    signInCredentialsDto: SignInCredentialsDto,
   ): Promise<{ accessToken: string }> {
-    const { username, password } = authCredentialsDto;
+    const { username, password } = signInCredentialsDto;
     const user = await this.usersRepository.findOne({ username });
 
     if (user && (await hashCompare(password, user.password))) {

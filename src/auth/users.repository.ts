@@ -4,13 +4,13 @@ import {
 } from '@nestjs/common';
 import { EntityRepository, Repository } from 'typeorm';
 import { genSaltSync, hash } from 'bcrypt';
-import { AuthCredentialsDto } from '@/auth/dto/auth-credentials.dto';
+import { SignInCredentialsDto } from '@/auth/dto/sign-in-credentials.dto';
 import { User } from '@/auth/user.entity';
 
 @EntityRepository(User)
 export class UsersRepository extends Repository<User> {
-  async createUser(authCredentialsDto: AuthCredentialsDto): Promise<void> {
-    const { username, password } = authCredentialsDto;
+  async createUser(signincredentialsDto: SignInCredentialsDto): Promise<void> {
+    const { username, password } = signincredentialsDto;
 
     // Hashing the password
     const salt = genSaltSync();
