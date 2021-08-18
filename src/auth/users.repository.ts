@@ -9,7 +9,7 @@ import { User } from '@/auth/user.entity';
 
 @EntityRepository(User)
 export class UsersRepository extends Repository<User> {
-  async createUser(signincredentialsDto: SignInCredentialsDto): Promise<void> {
+  async createUser(signincredentialsDto: SignInCredentialsDto): Promise<User> {
     const { username, password } = signincredentialsDto;
 
     // Hashing the password
@@ -23,6 +23,7 @@ export class UsersRepository extends Repository<User> {
 
     try {
       await this.save(user);
+      return user;
     } catch (e) {
       if (e.code === 'ER_DUP_ENTRY') {
         throw new ConflictException('username already exists');
