@@ -10,6 +10,7 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
+      forbidUnknownValues: true,
     }),
   );
   app.useGlobalInterceptors(new TransformInterceptor());
