@@ -1,4 +1,5 @@
 import {
+  Equals,
   IsBoolean,
   IsString,
   Matches,
@@ -21,5 +22,6 @@ export class SignUpCredentialsDto {
   password: string;
 
   @IsBoolean()
+  @Equals(true)
   terms: boolean;
 }
